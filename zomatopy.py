@@ -14,10 +14,6 @@ class Zomato:
 
 
     def get_categories(self):
-        """
-        Takes no input.
-        Returns a dictionary of IDs and their respective category names.
-        """
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
         r = (requests.get(base_url + "categories", headers=headers).content).decode("utf-8")
         a = ast.literal_eval(r)
@@ -33,10 +29,7 @@ class Zomato:
 
 
     def get_city_ID(self, city_name):
-        """
-        Takes City Name as input.
-        Returns the ID for the city given as input.
-        """
+        
         if city_name.isalpha() == False:
             raise ValueError('InvalidCityName')
         city_name = city_name.split(' ')
@@ -59,10 +52,6 @@ class Zomato:
 
 
     def get_city_name(self, city_ID):
-        """
-        Takes City ID as input.
-        Returns the name of the city ID given as input.
-        """
         self.is_valid_city_id(city_ID)
 
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
@@ -82,12 +71,7 @@ class Zomato:
 
 
     def get_collections(self, city_ID, limit=None):
-        """
-        Takes City ID as input. limit parameter is optional.
-        Returns dictionary of Zomato restaurant collections in a city and their respective URLs.
-        """
-        #self.is_valid_city_id(city_ID)
-
+        
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
         if limit == None:
             r = (requests.get(base_url + "collections?city_id=" + str(city_ID), headers=headers).content).decode("utf-8")
@@ -110,10 +94,6 @@ class Zomato:
 
 
     def get_cuisines(self, city_ID):
-        """
-        Takes City ID as input.
-        Returns a sorted dictionary of all cuisine IDs and their respective cuisine names.
-        """
         self.is_valid_city_id(city_ID)
 
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
@@ -190,10 +170,6 @@ class Zomato:
 
 
     def get_restaurant(self, restaurant_ID):
-        """
-        Takes Restaurant ID as input.
-        Returns a dictionary of restaurant details.
-        """
         self.is_valid_restaurant_id(restaurant_ID)
 
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
@@ -216,7 +192,7 @@ class Zomato:
         return restaurant_details
 
 
-    def restaurant_search(self, query="", latitude="", longitude="", cuisines="", limit=5):
+    def restaurant_search(self, query="", latitude="", longitude="", cuisines="", limit=50000):
         """
         Takes either query, latitude and longitude or cuisine as input.
         Returns a list of Restaurant IDs.
@@ -229,7 +205,7 @@ class Zomato:
         return r#a = ast.literal_eval(r)
 
 
-    def get_location(self, query="", limit=5):
+    def get_location(self, query="", limit=50000):
         """
         Takes either query, latitude and longitude or cuisine as input.
         Returns a list of Restaurant IDs.
@@ -240,7 +216,7 @@ class Zomato:
         r = (requests.get(base_url + "locations?query=" + str(query) + "&count=" + str(limit), headers=headers).content).decode("utf-8")
         return r
 
-    def restaurant_search_by_keyword(self, query="", cuisines="", limit=5):
+    def restaurant_search_by_keyword(self, query="", cuisines="", limit=50000):
         """
         Takes either query, latitude and longitude or cuisine as input.
         Returns a list of Restaurant IDs.
@@ -251,9 +227,6 @@ class Zomato:
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
         r = (requests.get(base_url + "search?q=" + str(query) + "&count=" + str(limit) + "&cuisines=" + str(cuisines), headers=headers).content).decode("utf-8")
         return r
-
-
-
 
     def is_valid_restaurant_id(self, restaurant_ID):
         """
