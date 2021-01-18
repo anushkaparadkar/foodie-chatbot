@@ -16,7 +16,7 @@ class ActionSearchRestaurants(Action):
         config={"user_key":"cc9611902ebc9b782618ec2adefba4c9"}
         zomato = zomatopy.initialize_app(config)
         loc = tracker.get_slot('location')
-        cuisine = tracker.get_slot('cuisine')
+   t     cuisine = tracker.get_slot('cuisine')
         budget = tracker.get_slot('budget')
 
         if budget == 'Lesser than Rs.300':
@@ -110,11 +110,11 @@ class ActionSendEmail(Action):
             for restaurant in email_data:
                 response=response+"Restaurant name: "+restaurant['name']+"\n"+"Restaurant Address: "+restaurant['address']+"\n"+"Average cost for two people: "+f"{restaurant['avg_cost']}"+"\n"+"Average Zomato Rating: "+f"{restaurant['rating']}"+"\n \n"
         else:
-            response=response+"I am sorry, your search had no results, please try again."
+            response=response+"Your search had no results, please try again."
         
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.starttls()
-        s.login("foodiebot0620", "oneaccount")
+        s.login("rasabot123", "123456789")
 
         body = "Hi there, \n\nPlease find below the details of all the restaurants you enquired about: \n\n"
         subject = "Foodie Bot- Your list of top 10 restaurants"
@@ -130,7 +130,6 @@ class ActionSendEmail(Action):
         
         
 class ResetAllSlots(Action):
-    '''Reset all slots'''
     def name(self):
         return 'action_slotreset'
 

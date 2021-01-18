@@ -118,10 +118,6 @@ class Zomato:
 
 
     def get_establishment_types(self, city_ID):
-        """
-        Takes City ID as input.
-        Returns a sorted dictionary of all establishment type IDs and their respective establishment type names.
-        """
         self.is_valid_city_id(city_ID)
 
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
@@ -193,10 +189,6 @@ class Zomato:
 
 
     def restaurant_search(self, query="", latitude="", longitude="", cuisines="", limit=50000):
-        """
-        Takes either query, latitude and longitude or cuisine as input.
-        Returns a list of Restaurant IDs.
-        """
         cuisines = "%2C".join(cuisines.split(","))
         if str(limit).isalpha() == True:
             raise ValueError('LimitNotInteger')
@@ -206,21 +198,13 @@ class Zomato:
 
 
     def get_location(self, query="", limit=50000):
-        """
-        Takes either query, latitude and longitude or cuisine as input.
-        Returns a list of Restaurant IDs.
-        """
-        if str(limit).isalpha() == True:
+         if str(limit).isalpha() == True:
             raise ValueError('LimitNotInteger')
         headers = {'Accept': 'application/json', 'user-key': self.user_key}
         r = (requests.get(base_url + "locations?query=" + str(query) + "&count=" + str(limit), headers=headers).content).decode("utf-8")
         return r
 
     def restaurant_search_by_keyword(self, query="", cuisines="", limit=50000):
-        """
-        Takes either query, latitude and longitude or cuisine as input.
-        Returns a list of Restaurant IDs.
-        """
         cuisines = "%2C".join(cuisines.split(","))
         if str(limit).isalpha() == True:
             raise ValueError('LimitNotInteger')
@@ -229,10 +213,6 @@ class Zomato:
         return r
 
     def is_valid_restaurant_id(self, restaurant_ID):
-        """
-        Checks if the Restaurant ID is valid or invalid.
-        If invalid, throws a InvalidRestaurantId Exception.
-        """
         restaurant_ID = str(restaurant_ID)
         if restaurant_ID.isnumeric() == False:
             raise ValueError('InvalidRestaurantId')
@@ -240,21 +220,12 @@ class Zomato:
 
 
     def is_valid_city_id(self, city_ID):
-        """
-        Checks if the City ID is valid or invalid.
-        If invalid, throws a InvalidCityId Exception.
-        """
         city_ID = str(city_ID)
         if city_ID.isnumeric() == False:
-            return True# raise ValueError('InvalidCityId')
-
+            return True
 
 
     def is_key_invalid(self, a):
-        """
-        Checks if the API key provided is valid or invalid.
-        If invalid, throws a InvalidKey Exception.
-        """
         if 'code' in a:
             if a['code'] == 403:
                 raise ValueError('InvalidKey')
@@ -262,10 +233,6 @@ class Zomato:
 
 
     def is_rate_exceeded(self, a):
-        """
-        Checks if the request limit for the API key is exceeded or not.
-        If exceeded, throws a ApiLimitExceeded Exception.
-        """
         if 'code' in a:
             if a['code'] == 440:
                 raise Exception('ApiLimitExceeded')
@@ -273,10 +240,6 @@ class Zomato:
 
 
 class DotDict(dict):
-    """
-    Dot notation access to dictionary attributes
-    """
-
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__

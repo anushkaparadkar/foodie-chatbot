@@ -30,6 +30,7 @@
 - thnx
 - thanq
 - yeah, send it
+- ty
 
 ## intent:deny
 
