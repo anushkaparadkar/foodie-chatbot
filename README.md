@@ -23,4 +23,11 @@ Restaurant 1 in Area 1. And the average price for two people here is: XXX Rs
 .
 .
 .   
-Bot: Should I send you details of all the restaurants on email? User: yes. Please Bot: To what email id should I send it to? User: jddk.2jmd@kdl.co.in Bot: Sent. Bon Appetit!
+Bot: Should I send you details of all the restaurants on email?   
+User: yes. Please   
+Bot: To what email id should I send it to?  
+User: jddk.2jmd@kdl.co.in   
+Bot: Sent. Bon Appetit!
+
+
+
